@@ -1,0 +1,181 @@
+const isDesktop = window.matchMedia('(min-width: 992px)').matches;
+const prevArrow = '<button class="btn p-2 slick-prev"><i class="material-icons">arrow_back</i></button>';
+const nextArrow = '<button class="btn p-2 slick-next"><i class="material-icons">arrow_forward</i></button>';
+
+$(function () {
+  let headerHeight = $('header').outerHeight();
+  let courseHeight = $('.course-banner').outerHeight();
+
+  // fixed header
+  $(window).scroll(function () {
+    let headerScrolled = $(this).scrollTop() > headerHeight;
+    // let courseScrolled = $(this).scrollTop() > courseHeight;
+    $('body')
+      .toggleClass('header-fixed', headerScrolled)
+      .css('padding-top', headerScrolled ? headerHeight : 0);
+    //   .toggleClass('inner-fixed', courseScrolled)
+    //   .css('padding-top', headerScrolled ? (courseScrolled ? headerHeight + courseHeight + 64 : headerHeight) : 0);
+    // $('.course-banner').css('margin-top', courseScrolled ? headerHeight : 0);
+  });
+
+  // show/hide arrow up
+  $(window).scroll(function () {
+    $('.scroll-up').toggleClass('scroll-up__visible', $(this).scrollTop() > 800);
+  });
+
+  // sscroll on arrow up click
+  $('.scroll-up').click(function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // align dropdown end on out of screen
+  $('.navbar .dropdown').mouseover(function () {
+    const notCollapsed = isDesktop;
+    const dropdownMenu = $(this).find('.dropdown-menu');
+    if (notCollapsed && !dropdownMenu.hasClass('dropdown-menu-end')) {
+      const dropdownMenuEdge = dropdownMenu.offset().left + dropdownMenu.outerWidth();
+      if (dropdownMenuEdge > $(window).width()) {
+        dropdownMenu.addClass('dropdown-menu-end');
+      }
+    }
+  });
+
+  $('.search-toggler').click(function () {
+    $('#search input').focus();
+  });
+
+  // course slider to accordion in mobile
+  if (!isDesktop) {
+    $('.accordion.course-slider .accordion-button').click(function () {
+      $(this).toggleClass('collapsed');
+    });
+  }
+
+  // course slider in desktop & mobile
+  if (isDesktop) {
+    $('.course-slider').each(function () {
+      const rows = $(this).children().length >= 8 ? 2 : 1;
+      $(this).slick({
+        rows: rows,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        infinite: false,
+        lazyLoad: true,
+        prevArrow: prevArrow,
+        nextArrow: nextArrow,
+        responsive: [
+          {
+            breakpoint: 992,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      });
+    });
+
+    $('.date_slide').slick({
+      autoplay: true,
+      speed: 200,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: true,
+      arrows: false,
+    });
+  }
+
+  $('.testimonial__slider').slick({
+    autoplay: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    lazyLoad: true,
+    infinite: true,
+    dots: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  // initialize AOS animations (timeout requried to fix hidden issue with slick)
+  setTimeout(function () {
+    AOS.init({
+      disable: !isDesktop,
+      once: true,
+      duration: 1200,
+    });
+  });
+
+  $('#livesearch').on('keyup', function () {
+    var key = $(this).val();
+    if (key == '') {
+      $('#suggestion-box').hide();
+    }
+    $.ajax({
+      type: 'POST',
+      url: 'https://www.ittrainingnepal.com/live-search.php',
+      // testinging edit
+      data: {
+        key: key,
+      },
+      success: function (data) {
+        $('#suggestion-box').show();
+        $('#suggestion-box').html(data);
+      },
+    });
+  });
+
+  document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('livesearch');
+    const t = document.getElementById('suggestion-box');
+    if (box && !box.contains(event.target)) {
+      t.style.display = 'none';
+    }
+  });
+});
+
+const allImages= document.querySelectorAll("img");
+let imageOptions={};
+let observer = new IntersectionObserver((entries,observer)=>{
+    entries.forEach((entry)=>{
+        if(!entry.isIntersecting)return;
+            const image =entry.target;
+            const nURL=image.getAttribute('data-src');
+            image.src=nURL;
+            observer.unobserve(image);
+    })
+}, imageOptions);
+allImages.forEach(image=>{
+    observer.observe(image);
+})

@@ -1,0 +1,135 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.top-header{
+    width: 100%;
+    background: rgb(135, 165, 255);
+    height: 40px;
+}
+.top-2header{
+    width: 100%;
+    background: blue;
+    height: 60px;
+
+}
+.downheader{
+    margin-top: 70px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+.box{
+    width: 33%;
+    background: yellow;
+    height: 300px;
+}
+.boxdowner{
+    margin-top:8px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.smallbox{
+    width: 33%;
+    background: greenyellow;
+    height: 30px;
+}
+.fourbox{
+    width: 80%;
+    margin-top: 150px;
+    display: flex;
+    justify-content: space-between;
+    height: 300px;
+    margin-left: 130px;
+}
+.boxes{
+    width: 23%;
+    background:grey;
+    height:300px;
+}
+.jenu{
+    width: 80%;
+    margin-top: 30px;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 130px;
+}
+.anku{
+    width: 23%;
+    background:grey;
+    height:300px;
+}
+.aishu{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    height: 300px;
+    margin-top: 130px;
+    margin-left:130px ;
+}
+.shidh{
+    width:23%;
+    background:rgb(92, 92, 245);
+    height: 300px;
+}
+.luvher{
+    width: 80%;
+    height: 300px;
+    margin-top:70px ;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 130px;
+}
+.noher{
+    width: 32%;
+    background: green;
+}
+.her{
+    width: 80%;
+    display: flex;
+    margin-top:90px;
+    justify-content: space-between;
+    height:330px ;
+    margin-left: 130px;
+}
+.londi{
+    width: 32%;
+    background:rgb(255, 225, 52);
+    height: 330px;
+}
+.him{
+    width: 80%;
+    height: 220px;
+    margin-left:130px ;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.all{
+    width:23%;
+    height:220px ;
+    background:rgb(31, 97, 156);
+}
+.lastcontainer{
+    width:80%;
+    height:300px ;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 130px;
+    margin-top: 140px;
+}
+.finished{
+    width:12% ;
+    height:100px ;
+    background: rgb(162, 95, 36);
+}
+.LAST{
+    width: 100%;
+    background: navy;
+    height: 400px;
+    
+}
